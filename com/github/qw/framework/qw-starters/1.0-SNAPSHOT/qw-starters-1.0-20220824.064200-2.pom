@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.qw.framework</groupId>
+    <artifactId>qw-starters</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>qw-core</module>
+        <module>qw-starter-aop</module>
+        <module>qw-starter-web</module>
+        <module>qw-starter-test</module>
+        <module>qw-starter-okhttps</module>
+        <module>qw-starter-redis</module>
+        <module>qw-starter-mybatis</module>
+        <module>qw-starter-file</module>
+        <module>qw-starter-swagger</module>
+        <module>qw-starter-logging</module>
+        <module>qw-starter-nacos</module>
+        <module>qw-starter-xxl-job</module>
+        <module>qw-starter-rocketmq</module>
+        <module>qw-starter-feign</module>
+        <module>qw-starter-uuid</module>
+        <module>qw-starter-mongodb</module>
+        <module>qw-starter-lock</module>
+    </modules>
+
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.3</version>
+        <relativePath/>
+    </parent>
+
+
+    <properties>
+        <!-- core versions -->
+        <qw-starters.version>1.0-SNAPSHOT</qw-starters.version>
+        <!-- JDK8则改为'1.8'  JDK11则改为'11' -->
+        <java.version>1.8</java.version>
+        <!-- 若变更Spring Boot版本, 上面parent依赖版本也要变 -->
+        <spring-boot.version>2.6.3</spring-boot.version>
+
+
+        <!-- Spring Cloud versions -->
+        <spring-cloud-starter-bootstrap.version>3.1.1</spring-cloud-starter-bootstrap.version>
+
+        <spring-boot-admin.version>2.7.4</spring-boot-admin.version>
+
+        <!-- Spring Cloud Alibaba versions -->
+        <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
+        <!-- DON'T upgrade Dubbo -->
+        <dubbo.version>2.7.12</dubbo.version>
+        <seata.vesion>1.5.2</seata.vesion>
+        <nacos-client.vesion>2.0.3</nacos-client.vesion>
+
+
+        <!-- 3rd-party versions -->
+        <okhttps.version>3.4.1</okhttps.version>
+        <jackson.version>2.12.1</jackson.version>
+        <fastjson.version>1.2.83</fastjson.version>
+        <gson.version>2.8.6</gson.version>
+        <hutool.version>5.7.15</hutool.version>
+        <sa-token.version>1.27.0</sa-token.version>
+        <transmittable-thread-local.version>2.12.1</transmittable-thread-local.version>
+        <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <knife4j.version>3.0.3</knife4j.version>
+        <aspectj.version>1.9.6</aspectj.version>
+        <guava.version>30.1.1-jre</guava.version>
+        <lombok.version>1.18.20</lombok.version>
+        <easypoi.version>4.3.0</easypoi.version>
+        <swagger.version>3.0.0</swagger.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
+        <xxl-job.version>2.3.0</xxl-job.version>
+        <redisson.version>3.17.5</redisson.version>
+
+        <!-- DB Driver versions -->
+        <mysql.version>8.0.16</mysql.version>
+        <druid.version>1.2.8</druid.version>
+
+        <!-- CI/CD -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.version>3.6.3</maven.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <buildTime>v.${project.version} build ${maven.build.timestamp.format}</buildTime>
+        <main.user.dir>${basedir}/..</main.user.dir>
+        <jib-maven-plugin.version>3.0.0</jib-maven-plugin.version>
+
+
+        <!-- maven clear插件版本 -->
+        <maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
+        <!-- 编译插件版本 -->
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <!-- 单元测试插件版本 -->
+        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+        <!-- 打包插件版本 -->
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <!-- 发布源码插件版本 -->
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+    </properties>
+    <!-- 全局使用 -->
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+    </dependencies>
+    <!-- dependencyManagement -->
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.github.qw.framework</groupId>
+                <artifactId>qw-core</artifactId>
+                <version>${qw-starters.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.qw.framework</groupId>
+                <artifactId>qw-starter-aop</artifactId>
+                <version>${qw-starters.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.qw.framework</groupId>
+                <artifactId>qw-starter-web</artifactId>
+                <version>${qw-starters.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.qw.framework</groupId>
+                <artifactId>qw-starter-okhttps</artifactId>
+                <version>${qw-starters.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.qw.framework</groupId>
+                <artifactId>qw-starter-file</artifactId>
+                <version>${qw-starters.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.qw.framework</groupId>
+                <artifactId>qw-starter-mybatis</artifactId>
+                <version>${qw-starters.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.qw.framework</groupId>
+                <artifactId>qw-starter-redis</artifactId>
+                <version>${qw-starters.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.qw.framework</groupId>
+                <artifactId>qw-starter-test</artifactId>
+                <version>${qw-starters.version}</version>
+            </dependency>
+
+            <!-- CORE dependencies -->
+            <dependency>
+                <groupId>com.ejlchina</groupId>
+                <artifactId>okhttps-fastjson</artifactId>
+                <version>${okhttps.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
+            </dependency>
+
+            <!-- Google JSON工具包，未来替换fastjson -->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+            <!-- google guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- AOP dependencies -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+
+            <!-- CLOUD dependencies -->
+            <!--spring-boot-admin-client-->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-bootstrap</artifactId>
+                <version>${spring-cloud-starter-bootstrap.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-commons</artifactId>
+                <version>${spring-cloud-starter-bootstrap.version}</version>
+            </dependency>
+            <!-- LB 扩展 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                <version>${spring-cloud-starter-bootstrap.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${spring-cloud-starter-bootstrap.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-context</artifactId>
+                <version>${spring-cloud-starter-bootstrap.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+            </dependency>
+
+            <!--<dependency>-->
+            <!--    <groupId>com.alibaba.nacos</groupId>-->
+            <!--    <artifactId>nacos-client</artifactId>-->
+            <!--    <version>${nacos-client.vesion}</version>-->
+            <!--</dependency>-->
+
+
+            <!-- CRUD dependencies -->
+            <!-- 常用数据库驱动 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!-- Druid -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- 分页 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>5.1.10</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- DUBBO dependencies -->
+            <!--<dependency>-->
+            <!--    <groupId>org.apache.dubbo</groupId>-->
+            <!--    <artifactId>dubbo-spring-boot-starter</artifactId>-->
+            <!--    <version>${dubbo.version}</version>-->
+            <!--</dependency>-->
+
+            <!-- feign-okhttp -->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-okhttp</artifactId>
+                <version>11.7</version>
+            </dependency>
+
+
+            <!-- KNIFE4J dependencies -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-annotations</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+            <!--自定义修改的knife4j-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-micro-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+
+            <!-- REDIS dependencies -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-actuator</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- redisson -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <!-- SEATA dependencies -->
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.vesion}</version>
+            </dependency>
+
+
+            <!-- TEST dependencies -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- WEB dependencies -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+                <!-- 排除内置Tomcat，starter-web中会另外引入Undertow作为Web容器 -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-tomcat</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- javax.servlet-api -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>4.0.1</version>
+            </dependency>
+            <!-- easypoi -->
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-base</artifactId>
+                <version>${easypoi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-web</artifactId>
+                <version>${easypoi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-annotation</artifactId>
+                <version>${easypoi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${commons-collections.version}</version>
+            </dependency>
+            <!--xxl-job-->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>4.9.2</version>
+            </dependency>
+            <!-- 以下两个一定得加 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-mongodb</artifactId>
+                <version>2.4.2</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <!-- maven clean插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${maven-clean-plugin.version}</version>
+                <configuration>
+                    <!-- 当配置true时，只清理filesets里的文件，构建目录中得文件不被清理，默认是flase -->
+                    <excludeDefaultDirectories>false</excludeDefaultDirectories>
+                    <filesets>
+                        <fileset>
+                            <directory>${project.basedir}/mvn-repo</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <!--单元测试插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <!--打包插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <configuration>
+                    <!-- 指定输出路径-->
+                    <outputDirectory>
+                        ${session.executionRootDirectory}/target
+                    </outputDirectory>
+                </configuration>
+            </plugin>
+            <!--<plugin>-->
+            <!--    <groupId>org.apache.maven.plugins</groupId>-->
+            <!--    <artifactId>maven-resources-plugin</artifactId>-->
+            <!--</plugin>-->
+            <!-- 打包发布源码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <configuration>
+                    <skip>false</skip>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <altDeploymentRepository>maven.repo::default::file://${session.executionRootDirectory}/mvn-repo</altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Deploy the web site -->
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <!-- Plugin configuration goes here -->
+                    <server>github</server>
+                    <!-- The commit message -->
+                    <message>init git maven repository</message>
+                    <noJekyll>true</noJekyll>
+                    <outputDirectory>${session.executionRootDirectory}/mvn-repo</outputDirectory><!--本地jar地址-->
+                    <!-- Use merge or override the content -->
+                    <merge>true</merge>
+                    <outputDirectory>${session.executionRootDirectory}/mvn-repo</outputDirectory>
+                    <branch>refs/heads/master</branch><!--分支的名称-->
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <!-- The location where the site is uploaded -->
+                    <repositoryName>mvn-repo</repositoryName> <!-- github repo name -->
+                    <repositoryOwner>qdwu</repositoryOwner> <!-- organization or user name  -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--发布到github私服-->
+    <!--<distributionManagement>-->
+    <!--    <repository>-->
+    <!--        <id>github</id>-->
+    <!--        <name>qdwu-Maven-Packages</name>-->
+    <!--        <url>https://maven.pkg.github.com/qdwu/mvn-repo</url>-->
+    <!--    </repository>-->
+    <!--</distributionManagement>-->
+    <distributionManagement>
+        <repository>
+            <id>maven.repo</id>
+            <name>Local Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
+        </repository>
+    </distributionManagement>
+
+</project>
